@@ -15,6 +15,8 @@ export default defineConfig({
       api: '/src/api',
       store: '/src/store',
       hooks: '/src/hooks',
+      pages: '/src/pages',
+      config: '/src/config',
     },
   },
-})
+});

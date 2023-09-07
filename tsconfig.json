@@ -31,7 +31,9 @@
       "utils/*": ["utils/*"],
       "api/*": ["api/*"],
       "store/*": ["store/*"],
-      "hooks/*": ["hooks/*"]
+      "hooks/*": ["hooks/*"],
+      "pages/*": ["pages/*"],
+      "config/*": ["config/*"],
     }
   },
   "include": [
