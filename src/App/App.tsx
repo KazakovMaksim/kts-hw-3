@@ -6,17 +6,20 @@ import ProductPage from 'pages/ProductPage';
 import ROUTES from 'config/routes';
 import RegisterPage from 'pages/RegisterPage';
 import LoginPage from 'pages/LoginPage';
+import Wrapper from 'components/Wrapper';
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path={ROUTES.MAIN} element={<MainPage />} />
-        <Route path={ROUTES.PRODUCT} element={<ProductPage />} />
-        <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-        <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
-        <Route path={ROUTES.NOTFOUND} element={<NotFoundPage />} />
-      </Routes>
+      <Wrapper>
+        <Routes>
+          <Route path={ROUTES.MAIN} element={<MainPage />} />
+          <Route path={ROUTES.PRODUCT} element={<ProductPage />} />
+          <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+          <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+          <Route path={ROUTES.NOTFOUND} element={<NotFoundPage />} />
+        </Routes>
+      </Wrapper>
     </BrowserRouter>
   );
 }
