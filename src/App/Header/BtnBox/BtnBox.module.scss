@@ -1,0 +1,13 @@
+.btnBox {
+  display: flex;
+  gap: 24px;
+
+  &_icon {
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--main-color);
+    }
+  }
+}

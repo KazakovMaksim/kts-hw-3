@@ -1,0 +1,32 @@
+.nav {
+  display: flex;
+  align-items: center;
+  padding-right: 47px;
+  gap: var(--space-xl);
+
+  & > li {
+    font-size: 18px;
+    line-height: 180%;
+    cursor: pointer;
+  }
+
+  & > li > a {
+    position: relative;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--main-color)
+    }
+  }
+}
+
+.active::after {
+  position: absolute;
+  content: '';
+  height: 3px;
+  width: 100%;
+  left: 0;
+  top: 56px;
+  background-color: var(--main-color);
+  z-index: 2;
+}
