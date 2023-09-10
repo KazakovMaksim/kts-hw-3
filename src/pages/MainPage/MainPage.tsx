@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 import Text from 'components/Text';
 import Input from 'components/Input';
@@ -14,9 +14,9 @@ import styles from './MainPage.module.scss';
 
 const tempCurrentPage = 1;
 
-function MainPage() {
+const MainPage = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [totalProductsNum, setTotalProductsNum] = useState('');
+  const [totalProductsNum, setTotalProductsNum] = useState(0);
   const [products, setProducts] = useState<ProductItem[]>([]);
   const [, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,7 @@ function MainPage() {
     const fetch = async () => {
       setIsLoading(true);
       try {
-        const res = await axios({
+        const res: AxiosResponse<ProductItem[]> = await axios({
           method: 'get',
           url: getProductsURL(tempCurrentPage, cardsByPage),
         });
@@ -44,7 +44,7 @@ function MainPage() {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await axios({
+        const res: AxiosResponse<ProductItem[]> = await axios({
           method: 'get',
           url: catalog,
         });
