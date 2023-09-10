@@ -7,11 +7,13 @@ import ROUTES from 'config/routes';
 import RegisterPage from 'pages/RegisterPage';
 import LoginPage from 'pages/LoginPage';
 import Wrapper from 'components/Wrapper';
+import Header from './Header';
 
 function App() {
   return (
     <BrowserRouter>
       <Wrapper>
+        <Header />
         <Routes>
           <Route path={ROUTES.MAIN} element={<MainPage />} />
           <Route path={ROUTES.PRODUCT} element={<ProductPage />} />
