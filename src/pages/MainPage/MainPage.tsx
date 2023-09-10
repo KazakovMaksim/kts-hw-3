@@ -9,6 +9,7 @@ import { cardsByPage, catalog } from 'constants/index';
 import { getProductsURL } from 'utils/index';
 import Loader from 'components/Loader';
 import Cards from 'pages/MainPage/Cards';
+import Pagination from 'pages/MainPage/Pagination';
 import styles from './MainPage.module.scss';
 
 const tempCurrentPage = 1;
@@ -86,7 +87,10 @@ function MainPage() {
         {isLoading ? (
           <Loader className={styles.main_loader} />
         ) : (
-          <Cards products={products} />
+          <>
+            <Cards products={products} />
+            <Pagination />
+          </>
         )}
       </section>
     </main>
