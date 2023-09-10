@@ -5,9 +5,10 @@ import Text from 'components/Text';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import { ProductItem } from 'types/index';
-import Card from 'components/Card/Card';
-import { baseURL, cardsByPage, catalog } from 'constants/index';
+import { cardsByPage, catalog } from 'constants/index';
 import { getProductsURL } from 'utils/index';
+import Loader from 'components/Loader';
+import Cards from 'pages/MainPage/Cards';
 import styles from './MainPage.module.scss';
 
 const tempCurrentPage = 1;
@@ -17,9 +18,11 @@ function MainPage() {
   const [totalProductsNum, setTotalProductsNum] = useState('');
   const [products, setProducts] = useState<ProductItem[]>([]);
   const [, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
+      setIsLoading(true);
       try {
         const res = await axios({
           method: 'get',
@@ -30,6 +33,8 @@ function MainPage() {
         if (err instanceof Error) {
           setError(err.message);
         }
+      } finally {
+        setIsLoading(false);
       }
     };
     fetch();
@@ -78,23 +83,10 @@ function MainPage() {
         </Text>
       </div>
       <section className={styles.main_products}>
-        {products.length > 0 ? (
-          products.map((product) => (
-            <Card
-              key={product.id}
-              image={`${baseURL}/${product.imgSrc}`}
-              title={product.title}
-              subtitle={product.description}
-              captionSlot={product.category}
-              contentSlot={`$${product.price}`}
-              actionSlot={<Button>Add to cart</Button>}
-              onClick={() => {}}
-            />
-          ))
+        {isLoading ? (
+          <Loader className={styles.main_loader} />
         ) : (
-          <Text view="title" tag="h3" className={styles.main_noCards}>
-            Sorry, there are no products
-          </Text>
+          <Cards products={products} />
         )}
       </section>
     </main>
