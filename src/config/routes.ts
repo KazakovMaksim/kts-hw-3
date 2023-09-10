@@ -1,6 +1,6 @@
 const ROUTES = {
   MAIN: '/',
-  PRODUCT: '/product',
+  PRODUCT: '/product/:productId',
   REGISTER: '/auth/registration',
   LOGIN: '/auth/login',
   NOTFOUND: '*',

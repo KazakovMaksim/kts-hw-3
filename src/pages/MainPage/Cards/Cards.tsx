@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 
 import Button from 'components/Button';
@@ -12,6 +13,8 @@ interface CardsProps {
 }
 
 const Cards: React.FC<CardsProps> = ({ products }) => {
+  const navigate = useNavigate();
+
   return (
     <div className={cn(styles.cards)}>
       {products.length > 0 ? (
@@ -24,7 +27,7 @@ const Cards: React.FC<CardsProps> = ({ products }) => {
             captionSlot={product.category}
             contentSlot={`$${product.price}`}
             actionSlot={<Button>Add to cart</Button>}
-            onClick={() => {}}
+            onClick={() => navigate(`product/${product.id}`)}
           />
         ))
       ) : (
