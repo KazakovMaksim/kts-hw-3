@@ -1,0 +1,58 @@
+:root {
+  --background-primary: #fafafa;
+  --screen-color: #ffffff;
+  --line-color: #f3f3f3;
+  --main-color: #518581;
+  --shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+
+  /* spaces */
+  --space-xxs: 8px;
+  --space-xs: 12px;
+  --space-s: 14px;
+  --space-l: 20px;
+  --space-xl: 24px;
+
+  /* loader-color */
+  --loader-bg: #518581;
+
+  /* text-colors */
+  --text-primary: #000000;
+  --text-secondary: #afadb5;
+  --text-accent: #518581;
+  --text-Color: #151411;
+
+  /* button-colors */
+  --button-primary-text: #ffffff;
+  --button-primary-text-hover: #ffffff;
+  --button-primary-text-disabled: #ffffff;
+  --button-primary-text-active: #ffffff;
+
+  --button-primary-bg: #518581;
+  --button-primary-bg-hover: #86aaa7;
+  --button-primary-bg-active: #487773;
+  --button-primary-bg-disabled: #d9d9d9;
+
+  /* input-colors */
+  --input-text: #000000;
+  --input-bg: #ffffff;
+  --input-placeholder: #afadb5;
+  --input-border: #ffffff;
+  --input-bg-focus: #ffffff;
+  --input-border-focus: #518581;
+  --input-text-focus: #000000;
+  --input-bg-disabled: #ffffff;
+  --input-border-disabled: #ffffff;
+  --input-text-disabled: rgba(0, 0, 0, 0.2);
+
+  /* card-colors */
+  --card-image-bg: #d9d9d9;
+  --card-bg: #ffffff;
+
+   /* spaces */
+  --space-xxs: 8px;
+  --space-xs: 12px;
+  --space-s: 16px;
+  --space-m: 24px;
+  --space-xl: 48px;
+  --space-l: 32px;
+}
