@@ -16,6 +16,9 @@ module.exports = {
   },
   plugins: ['react-refresh', 'prettier'],
   rules: {
+    'react/prop-types': 0,
+    'react/jsx-props-no-spreading': 0,
+    'react/function-component-definition': 0,
     'import/prefer-default-export': 0,
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 0,
