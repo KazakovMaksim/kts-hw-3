@@ -20,27 +20,27 @@ const Pagination = () => {
             styles.pagination_button__active
           )}
         >
-          <Text view="p-18" weight="medium">
+          <Text view="p-18" tag="span" weight="medium">
             1
           </Text>
         </Button>
         <Button className={styles.pagination_button}>
-          <Text view="p-18" weight="medium">
+          <Text view="p-18" tag="span" weight="medium">
             2
           </Text>
         </Button>
         <Button className={styles.pagination_button}>
-          <Text view="p-18" weight="medium">
+          <Text view="p-18" tag="span" weight="medium">
             3
           </Text>
         </Button>
         <Button className={styles.pagination_button}>
-          <Text view="p-18" weight="medium">
+          <Text view="p-18" tag="span" weight="medium">
             ...
           </Text>
         </Button>
         <Button className={styles.pagination_button}>
-          <Text view="p-18" weight="medium">
+          <Text view="p-18" tag="span" weight="medium">
             10
           </Text>
         </Button>
