@@ -1,5 +1,4 @@
-import { useNavigate } from 'react-router-dom';
-import cn from 'classnames';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 import Button from 'components/Button';
 import Card from 'components/Card';
@@ -14,9 +13,11 @@ interface CardsProps {
 
 const Cards: React.FC<CardsProps> = ({ products }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { productId } = useParams();
 
   return (
-    <div className={cn(styles.cards)}>
+    <div className={styles.cards}>
       {products.length > 0 ? (
         products.map((product) => (
           <Card
@@ -27,7 +28,15 @@ const Cards: React.FC<CardsProps> = ({ products }) => {
             captionSlot={product.category}
             contentSlot={`$${product.price}`}
             actionSlot={<Button>Add to cart</Button>}
-            onClick={() => navigate(`product/${product.id}`)}
+            onClick={() => {
+              if (productId) {
+                const currentPath = location.pathname;
+                const newPath = `/product/${product.id}`;
+                navigate(newPath, { replace: currentPath !== newPath });
+              } else {
+                navigate(`product/${product.id}`);
+              }
+            }}
           />
         ))
       ) : (
