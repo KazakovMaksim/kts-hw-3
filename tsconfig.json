@@ -34,11 +34,9 @@
       "hooks/*": ["hooks/*"],
       "pages/*": ["pages/*"],
       "config/*": ["config/*"],
+      "App/*": ["App/*"]
     }
   },
-  "include": [
-    ".eslintrc.cjs",
-    "src"
-  ],
+  "include": [".eslintrc.cjs", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
