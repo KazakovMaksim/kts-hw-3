@@ -55,7 +55,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      setIsLoading(true);
+      // setIsLoading(true);
       try {
         const res: AxiosResponse<ProductItem> = await axios({
           method: 'get',

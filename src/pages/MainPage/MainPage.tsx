@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 
-import { API_ENDPOINTS } from 'config/api';
-import { BASE_URL, CARDS_BY_PAGE } from 'constants/index';
+import { CARDS_BY_PAGE } from 'constants/index';
 import { ProductItem } from 'types/index';
 import { getProductsURL } from 'utils/index';
 
@@ -30,6 +29,7 @@ const MainPage = () => {
           method: 'get',
           url: getProductsURL(tempCurrentPage, CARDS_BY_PAGE),
         });
+        setTotalProductsNum(res.headers['x-total-count']);
         setProducts(res.data);
       } catch (err: unknown) {
         if (err instanceof Error) {
@@ -37,23 +37,6 @@ const MainPage = () => {
         }
       } finally {
         setIsLoading(false);
-      }
-    };
-    fetch();
-  }, []);
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const res: AxiosResponse<ProductItem[]> = await axios({
-          method: 'get',
-          url: `${BASE_URL}${API_ENDPOINTS.CATALOG}`,
-        });
-        setTotalProductsNum(res.data.length);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
-        }
       }
     };
     fetch();
