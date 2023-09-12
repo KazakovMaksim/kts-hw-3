@@ -7,6 +7,8 @@ import ROUTES from 'config/routes';
 import RegisterPage from 'pages/RegisterPage';
 import LoginPage from 'pages/LoginPage';
 import RootPage from 'pages/RootPage/RootPage';
+import AboutPage from 'pages/AboutPage';
+import CategoriesPage from 'pages/CategoriesPage/CategoriesPage';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
       {
         path: ROUTES.PRODUCT,
         element: <ProductPage />,
+      },
+      {
+        path: ROUTES.CATEGORIES,
+        element: <CategoriesPage />,
+      },
+      {
+        path: ROUTES.ABOUT,
+        element: <AboutPage />,
       },
       {
         path: ROUTES.LOGIN,
