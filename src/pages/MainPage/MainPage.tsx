@@ -25,10 +25,9 @@ const MainPage = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res: AxiosResponse<ProductItem[]> = await axios({
-          method: 'get',
-          url: getProductsURL(tempCurrentPage, CARDS_BY_PAGE),
-        });
+        const res: AxiosResponse<ProductItem[]> = await axios(
+          getProductsURL(tempCurrentPage, CARDS_BY_PAGE)
+        );
         setTotalProductsNum(res.headers['x-total-count']);
         setProducts(res.data);
       } catch (err: unknown) {

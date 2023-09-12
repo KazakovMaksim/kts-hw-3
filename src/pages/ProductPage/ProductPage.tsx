@@ -55,12 +55,11 @@ const ProductPage = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      // setIsLoading(true);
+      setIsLoading(true);
       try {
-        const res: AxiosResponse<ProductItem> = await axios({
-          method: 'get',
-          url: `${BASE_URL}${API_ENDPOINTS.CATALOG}/${productId}`,
-        });
+        const res: AxiosResponse<ProductItem> = await axios(
+          `${BASE_URL}${API_ENDPOINTS.CATALOG}/${productId}`
+        );
         setProduct(res.data);
       } catch (err: unknown) {
         if (err instanceof Error) {
