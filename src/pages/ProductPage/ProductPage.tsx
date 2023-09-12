@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Text from 'components/Text';
 import ArrowIcon from 'components/Icons/ArrowIcon';
 import Button from 'components/Button';
-import Cards from 'pages/MainPage/Cards';
+import Cards from 'components/Cards';
 import { ProductItem } from 'types/index';
 import { baseURL, catalog } from 'constants/index';
 import Loader from 'components/Loader';

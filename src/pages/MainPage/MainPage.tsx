@@ -8,8 +8,8 @@ import { ProductItem } from 'types/index';
 import { cardsByPage, catalog } from 'constants/index';
 import { getProductsURL } from 'utils/index';
 import Loader from 'components/Loader';
-import Cards from 'pages/MainPage/Cards';
-import Pagination from 'pages/MainPage/Pagination';
+import Cards from 'components/Cards';
+import Pagination from 'pages/MainPage/components/Pagination';
 import styles from './MainPage.module.scss';
 
 const tempCurrentPage = 1;
@@ -95,6 +95,6 @@ const MainPage = () => {
       </section>
     </main>
   );
-}
+};
 
 export default MainPage;

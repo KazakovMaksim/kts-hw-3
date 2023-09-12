@@ -1,6 +1,6 @@
-import Wrapper from 'components/Wrapper';
 import { Outlet } from 'react-router-dom';
-import Header from 'App/Header';
+import Wrapper from 'pages/RootPage/components/Wrapper';
+import Header from 'pages/RootPage/components/Header';
 
 const RootPage = () => {
   return (
