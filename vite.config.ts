@@ -17,7 +17,6 @@ export default defineConfig({
       hooks: '/src/hooks',
       pages: '/src/pages',
       config: '/src/config',
-      App: '/src/App',
     },
   },
 });

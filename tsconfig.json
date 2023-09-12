@@ -33,8 +33,7 @@
       "store/*": ["store/*"],
       "hooks/*": ["hooks/*"],
       "pages/*": ["pages/*"],
-      "config/*": ["config/*"],
-      "App/*": ["App/*"]
+      "config/*": ["config/*"]
     }
   },
   "include": [".eslintrc.cjs", "src"],
