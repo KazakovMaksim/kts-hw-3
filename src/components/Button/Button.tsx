@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type="button"
       {...nativeProps}
-      disabled={disabled === true || loading === true}
+      disabled={disabled || loading}
       className={cn(
         className,
         styles.button,
