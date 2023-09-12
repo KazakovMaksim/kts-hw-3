@@ -1,6 +1,6 @@
-import BtnBox from './BtnBox';
-import NavBar from './NavBar';
-import Logo from './Logo';
+import BtnBox from './components/BtnBox';
+import NavBar from './components/NavBar';
+import Logo from './components/Logo';
 import styles from './Header.module.scss';
 
 const Header = () => {
