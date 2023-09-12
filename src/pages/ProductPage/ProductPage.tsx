@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { API_ENDPOINTS } from 'config/api';
+import { ProductItem } from 'types/index';
+import { BASE_URL } from 'constants/index';
+
 import Text from 'components/Text';
 import ArrowIcon from 'components/Icons/ArrowIcon';
 import Button from 'components/Button';
 import Cards from 'components/Cards';
-import { ProductItem } from 'types/index';
-import { baseURL, catalog } from 'constants/index';
 import Loader from 'components/Loader';
 import styles from './ProductPage.module.scss';
 
@@ -57,7 +59,7 @@ const ProductPage = () => {
       try {
         const res: AxiosResponse<ProductItem> = await axios({
           method: 'get',
-          url: `${catalog}/${productId}`,
+          url: `${BASE_URL}${API_ENDPOINTS.CATALOG}/${productId}`,
         });
         setProduct(res.data);
       } catch (err: unknown) {
@@ -84,7 +86,7 @@ const ProductPage = () => {
           <section className={styles.product_infoContainer}>
             <div className={styles.product_img}>
               {product && (
-                <img src={`${baseURL}/${product?.imgSrc}`} alt="card" />
+                <img src={`${BASE_URL}/${product?.imgSrc}`} alt="card" />
               )}
             </div>
             <div className={styles.product_info}>

@@ -1,5 +1,8 @@
-const API_ENDPOINTS = {
-  USER: './api/user',
-};
+export const API_ENDPOINTS = {
+  CATALOG: '/api/catalog',
 
-export default API_ENDPOINTS;
+  // fakeapi.platzi.com
+  PRODUCTS: '/api/v1/products',
+  CATEGORIES: 'api/v1/categories',
+  USER: '/api/v1/user',
+};

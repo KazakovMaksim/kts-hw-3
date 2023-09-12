@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 
+import { API_ENDPOINTS } from 'config/api';
+import { BASE_URL, CARDS_BY_PAGE } from 'constants/index';
+import { ProductItem } from 'types/index';
+import { getProductsURL } from 'utils/index';
+
 import Text from 'components/Text';
 import Input from 'components/Input';
 import Button from 'components/Button';
-import { ProductItem } from 'types/index';
-import { cardsByPage, catalog } from 'constants/index';
-import { getProductsURL } from 'utils/index';
 import Loader from 'components/Loader';
 import Cards from 'components/Cards';
 import Pagination from 'pages/MainPage/components/Pagination';
@@ -19,15 +21,14 @@ const MainPage = () => {
   const [totalProductsNum, setTotalProductsNum] = useState(0);
   const [products, setProducts] = useState<ProductItem[]>([]);
   const [, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetch = async () => {
-      setIsLoading(true);
       try {
         const res: AxiosResponse<ProductItem[]> = await axios({
           method: 'get',
-          url: getProductsURL(tempCurrentPage, cardsByPage),
+          url: getProductsURL(tempCurrentPage, CARDS_BY_PAGE),
         });
         setProducts(res.data);
       } catch (err: unknown) {
@@ -46,7 +47,7 @@ const MainPage = () => {
       try {
         const res: AxiosResponse<ProductItem[]> = await axios({
           method: 'get',
-          url: catalog,
+          url: `${BASE_URL}${API_ENDPOINTS.CATALOG}`,
         });
         setTotalProductsNum(res.data.length);
       } catch (err: unknown) {

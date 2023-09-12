@@ -1,7 +1,6 @@
 import ROUTES from 'config/routes';
 
-const baseURL = 'https://mock-server-api-kazakovmaksim.vercel.app';
-const catalog = `${baseURL}/api/catalog`;
+const BASE_URL = 'https://mock-server-api-kazakovmaksim.vercel.app';
 
 const CARDS_BY_PAGE = 9;
 
@@ -11,4 +10,4 @@ const NAV_BAR_LINKS = [
   { name: 'About us', path: ROUTES.ABOUT },
 ];
 
-export { NAV_BAR_LINKS, baseURL, catalog, CARDS_BY_PAGE };
+export { NAV_BAR_LINKS, BASE_URL, CARDS_BY_PAGE };

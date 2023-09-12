@@ -1,5 +1,6 @@
-import { catalog } from 'constants/index';
+import { API_ENDPOINTS } from 'config/api';
+import { BASE_URL } from 'constants/index';
 
 export const getProductsURL = (page: number, limit: number) => {
-  return `${catalog}/?_page=${page}&_limit=${limit}`;
+  return `${BASE_URL}${API_ENDPOINTS.CATALOG}/?_page=${page}&_limit=${limit}`;
 };
