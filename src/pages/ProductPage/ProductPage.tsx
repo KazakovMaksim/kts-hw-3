@@ -7,10 +7,10 @@ import { ProductItem } from 'types/index';
 import { BASE_URL } from 'constants/index';
 
 import Text from 'components/Text';
-import ArrowIcon from 'components/Icons/ArrowIcon';
-import Button from 'components/Button';
 import Cards from 'components/Cards';
 import Loader from 'components/Loader';
+import ArrowIcon from 'components/Icons/ArrowIcon';
+import Product from 'pages/ProductPage/components/Product';
 import styles from './ProductPage.module.scss';
 
 const products: ProductItem[] = [
@@ -48,7 +48,7 @@ const products: ProductItem[] = [
 
 const ProductPage = () => {
   const [product, setProduct] = useState<ProductItem | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [, setError] = useState('');
   const navigate = useNavigate();
   const { productId } = useParams();
@@ -82,26 +82,13 @@ const ProductPage = () => {
         <Loader className={styles.product_loader} />
       ) : (
         <>
-          <section className={styles.product_infoContainer}>
-            <div className={styles.product_img}>
-              {product && (
-                <img src={`${BASE_URL}/${product?.imgSrc}`} alt="card" />
-              )}
-            </div>
-            <div className={styles.product_info}>
-              <Text view="title">{product?.title}</Text>
-              <Text view="p-20" color="secondary">
-                {product?.description}
-              </Text>
-              <Text view="title">{`$${product?.price}`}</Text>
-              <div>
-                <Button>Buy Now</Button>
-                <Button className={styles.product_buttonCart}>
-                  Add to Cart
-                </Button>
-              </div>
-            </div>
-          </section>
+          {product ? (
+            <Product product={product} />
+          ) : (
+            <Text view="title" className={styles.product_empty}>
+              No such product
+            </Text>
+          )}
           <section className={styles.product_itemsContainer}>
             <Text view="title">Related Items</Text>
             <div>
