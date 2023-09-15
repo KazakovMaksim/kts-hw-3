@@ -1,45 +1,24 @@
-import { useState, useEffect } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import { useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
 
-import { CARDS_BY_PAGE } from 'constants/index';
 import { ProductItem } from 'types/index';
-import { getProductsURL } from 'utils/index';
+import { getProducts } from 'api/apiProducts';
 
 import Text from 'components/Text';
 import Input from 'components/Input';
-import Button from 'components/Button';
-import Loader from 'components/Loader';
 import Cards from 'components/Cards';
+import Button from 'components/Button';
 import Pagination from 'pages/MainPage/components/Pagination';
 import styles from './MainPage.module.scss';
 
-const tempCurrentPage = 1;
+type ResDataProps = {
+  totalProductsNum: number;
+  products: ProductItem[];
+};
 
 const MainPage = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [totalProductsNum, setTotalProductsNum] = useState(0);
-  const [products, setProducts] = useState<ProductItem[]>([]);
-  const [, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const res: AxiosResponse<ProductItem[]> = await axios(
-          getProductsURL(tempCurrentPage, CARDS_BY_PAGE)
-        );
-        setTotalProductsNum(res.headers['x-total-count']);
-        setProducts(res.data);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetch();
-  }, []);
+  const { products, totalProductsNum } = useLoaderData() as ResDataProps;
 
   return (
     <main className={styles.main}>
@@ -63,21 +42,20 @@ const MainPage = () => {
           Total Product
         </Text>
         <Text tag="span" color="accent" view="p-20" weight="bold">
-          {products.length > 0 ? totalProductsNum : 0}
+          {totalProductsNum > 0 ? totalProductsNum : 0}
         </Text>
       </div>
       <section className={styles.main_products}>
-        {isLoading ? (
-          <Loader className={styles.main_loader} />
-        ) : (
-          <>
-            <Cards products={products} />
-            <Pagination />
-          </>
-        )}
+        <Cards products={products} />
+        <Pagination />
       </section>
     </main>
   );
+};
+
+export const loader = async () => {
+  const loaderRes = await getProducts();
+  return loaderRes;
 };
 
 export default MainPage;

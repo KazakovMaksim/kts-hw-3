@@ -1,0 +1,12 @@
+.root {
+  &_loader {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    background-color: rgb(226 232 240 / 0.6);
+  }
+}
