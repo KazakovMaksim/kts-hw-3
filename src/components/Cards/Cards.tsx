@@ -23,7 +23,7 @@ const Cards: React.FC<CardsProps> = ({ products }) => {
         products.map((product) => (
           <Card
             key={product.id}
-            image={`${BASE_URL}/${product.images[0]}`}
+            image={product.images[0]}
             title={product.title}
             subtitle={product.description}
             captionSlot={product.category.name}
