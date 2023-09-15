@@ -1,15 +1,15 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import MainPage, { loader as MainPageLoader } from 'pages/MainPage';
-import NotFoundPage from 'pages/NotFoundPage';
-import ProductPage from 'pages/ProductPage';
 import ROUTES from 'config/routes';
-import RegisterPage from 'pages/RegisterPage';
+import RootPage from 'pages/RootPage';
 import LoginPage from 'pages/LoginPage';
-import RootPage from 'pages/RootPage/RootPage';
 import AboutPage from 'pages/AboutPage';
-import CategoriesPage from 'pages/CategoriesPage/CategoriesPage';
 import ErrorPage from 'pages/ErrorPage';
+import ProductPage from 'pages/ProductPage';
+import NotFoundPage from 'pages/NotFoundPage';
+import RegisterPage from 'pages/RegisterPage';
+import CategoriesPage from 'pages/CategoriesPage';
+import MainPage, { loader as MainPageLoader } from 'pages/MainPage';
 
 const router = createBrowserRouter([
   {
