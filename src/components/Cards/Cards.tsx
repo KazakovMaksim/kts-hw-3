@@ -23,10 +23,10 @@ const Cards: React.FC<CardsProps> = ({ products }) => {
         products.map((product) => (
           <Card
             key={product.id}
-            image={`${BASE_URL}/${product.imgSrc}`}
+            image={`${BASE_URL}/${product.images[0]}`}
             title={product.title}
             subtitle={product.description}
-            captionSlot={product.category}
+            captionSlot={product.category.name}
             contentSlot={`$${product.price}`}
             actionSlot={<Button>Add to cart</Button>}
             onClick={() => {

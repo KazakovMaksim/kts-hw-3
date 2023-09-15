@@ -1,6 +1,6 @@
 import ROUTES from 'config/routes';
 
-const BASE_URL = 'https://mock-server-api-kazakovmaksim.vercel.app';
+const BASE_URL = 'https://api.escuelajs.co';
 
 const CARDS_BY_PAGE = 9;
 

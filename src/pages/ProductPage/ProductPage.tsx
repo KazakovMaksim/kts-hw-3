@@ -13,39 +13,6 @@ import ArrowIcon from 'components/Icons/ArrowIcon';
 import Product from 'pages/ProductPage/components/Product';
 import styles from './ProductPage.module.scss';
 
-const products: ProductItem[] = [
-  {
-    id: 0,
-    title: 'Luxurious Fresh Table',
-    price: 647,
-    category: 'armchair',
-    rating: 5,
-    description:
-      'Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals',
-    imgSrc: 'assets/images/0.jpg',
-  },
-  {
-    id: 1,
-    title: 'Electronic Metal Bacon',
-    price: 775,
-    category: 'chair',
-    rating: 5,
-    description:
-      'Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support',
-    imgSrc: 'assets/images/1.jpg',
-  },
-  {
-    id: 2,
-    title: 'Intelligent Concrete Salad',
-    price: 134,
-    category: 'chair',
-    rating: 1,
-    description:
-      'The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive',
-    imgSrc: 'assets/images/2.jpg',
-  },
-];
-
 const ProductPage = () => {
   const [product, setProduct] = useState<ProductItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -58,7 +25,7 @@ const ProductPage = () => {
       setIsLoading(true);
       try {
         const res: AxiosResponse<ProductItem> = await axios(
-          `${BASE_URL}${API_ENDPOINTS.CATALOG}/${productId}`
+          `${BASE_URL}${API_ENDPOINTS.PRODUCTS}/${productId}`
         );
         setProduct(res.data);
       } catch (err: unknown) {
@@ -91,9 +58,7 @@ const ProductPage = () => {
           )}
           <section className={styles.product_itemsContainer}>
             <Text view="title">Related Items</Text>
-            <div>
-              <Cards products={products} />
-            </div>
+            <div>{/* <Cards products={products} /> */}</div>
           </section>
         </>
       )}
