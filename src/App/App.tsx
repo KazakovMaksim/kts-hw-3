@@ -5,10 +5,10 @@ import RootPage from 'pages/RootPage';
 import LoginPage from 'pages/LoginPage';
 import AboutPage from 'pages/AboutPage';
 import ErrorPage from 'pages/ErrorPage';
-import ProductPage from 'pages/ProductPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import RegisterPage from 'pages/RegisterPage';
 import CategoriesPage from 'pages/CategoriesPage';
+import ProductPage, { loader as ProductPageLoader } from 'pages/ProductPage';
 import MainPage, { loader as MainPageLoader } from 'pages/MainPage';
 
 const router = createBrowserRouter([
@@ -25,6 +25,8 @@ const router = createBrowserRouter([
       {
         path: ROUTES.PRODUCT,
         element: <ProductPage />,
+        loader: ProductPageLoader,
+        errorElement: <ErrorPage />,
       },
       {
         path: ROUTES.CATEGORIES,
