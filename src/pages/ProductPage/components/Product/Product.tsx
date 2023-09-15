@@ -2,7 +2,6 @@ import { ProductItem } from 'types/index';
 
 import Text from 'components/Text';
 import Button from 'components/Button';
-import { BASE_URL } from 'constants/index';
 import styles from './Product.module.scss';
 
 const Product = ({ product }: { product: ProductItem }) => {
@@ -11,7 +10,7 @@ const Product = ({ product }: { product: ProductItem }) => {
   return (
     <section className={styles.product_container}>
       <div className={styles.product_img}>
-        <img src={`${BASE_URL}/${images[0]}`} alt="card" />
+        <img src={images[0]} alt="card" />
       </div>
       <div className={styles.product_info}>
         <Text view="title">{title}</Text>
