@@ -23,10 +23,14 @@ class ProductStore {
     this.isLoading = value;
   };
 
-  getProductsAction = async () => {
+  updatePage = (newPage: number) => {
+    this.page = newPage;
+  };
+
+  getProductsAction = async (page: number) => {
     try {
       this.setIsLoading(true);
-      const { totalProductsNumRes, productsRes } = await getProducts();
+      const { totalProductsNumRes, productsRes } = await getProducts(page);
       runInAction(() => {
         this.totalProductsNum = totalProductsNumRes;
         this.products = productsRes;
