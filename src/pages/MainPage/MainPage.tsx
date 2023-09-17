@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 
-import { ProductItem } from 'types/index';
-import { getProducts } from 'api/apiProducts';
+import productStore from 'store/productStore';
 
 import Text from 'components/Text';
 import Input from 'components/Input';
@@ -12,31 +12,14 @@ import ErrorPage from 'pages/ErrorPage';
 import Pagination from 'pages/MainPage/components/Pagination';
 import styles from './MainPage.module.scss';
 
-const MainPage = () => {
+const MainPage = observer(() => {
   const [searchValue, setSearchValue] = useState('');
-  const [totalProductsNum, setTotalProductsNum] = useState(0);
-  const [products, setProducts] = useState<ProductItem[]>([]);
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const { totalProductsNum, products, getProductsAction, isLoading, error } =
+    productStore;
 
   useEffect(() => {
-    const fetch = async () => {
-      setError('');
-      try {
-        const { totalProductsNumRes, productsRes } = await getProducts();
-        setTotalProductsNum(totalProductsNumRes);
-        setProducts(productsRes);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetch();
-  }, []);
+    getProductsAction();
+  }, [getProductsAction]);
 
   return (
     <main className={styles.main}>
@@ -82,6 +65,6 @@ const MainPage = () => {
       )}
     </main>
   );
-};
+});
 
 export default MainPage;
