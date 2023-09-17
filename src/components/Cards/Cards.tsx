@@ -33,7 +33,7 @@ const Cards: React.FC<CardsProps> = ({ products }) => {
               if (productId) {
                 const currentPath = location.pathname;
                 const newPath = `/product/${product.id}`;
-                navigate(newPath, { replace: currentPath !== newPath });
+                if (currentPath !== newPath) navigate(newPath);
               } else {
                 navigate(`product/${product.id}`);
               }
