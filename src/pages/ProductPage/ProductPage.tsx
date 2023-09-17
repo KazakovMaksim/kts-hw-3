@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 
-import { API_ENDPOINTS } from 'config/api';
-import { ProductItem } from 'types/index';
-import { BASE_URL } from 'constants/index';
+import productStore from 'store/productStore';
 
 import Text from 'components/Text';
 import Cards from 'components/Cards';
@@ -13,31 +11,14 @@ import ArrowIcon from 'components/Icons/ArrowIcon';
 import Product from 'pages/ProductPage/components/Product';
 import styles from './ProductPage.module.scss';
 
-const ProductPage = () => {
-  const [product, setProduct] = useState<ProductItem | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [, setError] = useState('');
+const ProductPage = observer(() => {
+  const { products, product, getProductAction, isLoading } = productStore;
   const navigate = useNavigate();
   const { productId } = useParams();
 
   useEffect(() => {
-    const fetch = async () => {
-      setIsLoading(true);
-      try {
-        const res: AxiosResponse<ProductItem> = await axios(
-          `${BASE_URL}${API_ENDPOINTS.PRODUCTS}/${productId}`
-        );
-        setProduct(res.data);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetch();
-  }, [productId]);
+    if (productId) getProductAction(Number(productId));
+  }, [productId, getProductAction]);
 
   return (
     <main className={styles.product}>
@@ -57,13 +38,19 @@ const ProductPage = () => {
             </Text>
           )}
           <section className={styles.product_itemsContainer}>
-            <Text view="title">Related Items</Text>
-            <div>{/* <Cards products={products} /> */}</div>
+            {products.length > 0 && (
+              <>
+                <Text view="title">Related Items</Text>
+                <div>
+                  <Cards products={products.slice(0, 3)} />
+                </div>
+              </>
+            )}
           </section>
         </>
       )}
     </main>
   );
-};
+});
 
 export default ProductPage;

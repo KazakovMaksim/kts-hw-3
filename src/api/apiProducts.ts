@@ -25,3 +25,18 @@ export const getProducts = async (page = 1) => {
     throw new Error(String(err));
   }
 };
+
+export const getProduct = async (productId: number) => {
+  try {
+    const res: AxiosResponse<ProductItem> = await axios(
+      `${BASE_URL}${API_ENDPOINTS.PRODUCTS}/${productId}`
+    );
+
+    return res.data;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+    throw new Error(String(err));
+  }
+};
