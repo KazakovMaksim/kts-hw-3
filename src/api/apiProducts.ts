@@ -15,8 +15,8 @@ export const getProducts = async (page = 1) => {
     );
 
     return {
-      products: productsRes.data as ProductItem[],
-      totalProductsNum: (totalProductsNumRes.data as ProductItem[]).length,
+      productsRes: productsRes.data as ProductItem[],
+      totalProductsNumRes: (totalProductsNumRes.data as ProductItem[]).length,
     };
   } catch (err: unknown) {
     if (err instanceof Error) {
