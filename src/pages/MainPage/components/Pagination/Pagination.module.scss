@@ -5,6 +5,10 @@
   align-items: center;
   margin: 0 auto;
 
+  &_pages {
+    display: flex;
+  }
+
   &_button {
     padding: 10px;
     color: var(--text-color);

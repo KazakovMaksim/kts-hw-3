@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLoaderData, useSearchParams } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { action } from 'mobx';
 
 import { ProductItem } from 'types/index';
 import { getProducts } from 'api/apiProducts';
@@ -9,16 +11,30 @@ import Input from 'components/Input';
 import Cards from 'components/Cards';
 import Button from 'components/Button';
 import Pagination from 'pages/MainPage/components/Pagination';
+import productStore from 'store/productStore';
+import { QUERY_PAGE_PARAM } from 'constants/index';
+import { convertStringToNumber } from 'pages/MainPage/components/Pagination/Pagination';
 import styles from './MainPage.module.scss';
 
-type ResDataProps = {
+export type ResDataProps = {
   totalProductsNum: number;
   products: ProductItem[];
 };
 
-const MainPage = () => {
+const MainPage = observer(() => {
   const [searchValue, setSearchValue] = useState('');
   const { products, totalProductsNum } = useLoaderData() as ResDataProps;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = searchParams.get(QUERY_PAGE_PARAM);
+  const activePageNumber =
+    typeof pageParam === 'string' ? convertStringToNumber(pageParam) : null;
+
+  useEffect(() => {
+    if (!activePageNumber) {
+      searchParams.set(QUERY_PAGE_PARAM, '1');
+      setSearchParams(searchParams);
+    }
+  }, [searchParams, setSearchParams, activePageNumber]);
 
   return (
     <main className={styles.main}>
@@ -51,10 +67,14 @@ const MainPage = () => {
       </section>
     </main>
   );
-};
+});
 
 export const loader = async () => {
-  const loaderRes = await getProducts();
+  const loaderRes = await getProducts(productStore.page);
+
+  action(() => {
+    productStore.updateProducts(loaderRes.products);
+  })();
   return loaderRes;
 };
 

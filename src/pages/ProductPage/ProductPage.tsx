@@ -1,16 +1,20 @@
 import { Params, useLoaderData, useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 
 import { getProduct } from 'api/apiProducts';
 import { ProductItem } from 'types/index';
 
 import Text from 'components/Text';
+import Cards from 'components/Cards';
+import productStore from 'store/productStore';
 import ArrowIcon from 'components/Icons/ArrowIcon';
 import Product from 'pages/ProductPage/components/Product';
 import styles from './ProductPage.module.scss';
 
-const ProductPage = () => {
+const ProductPage = observer(() => {
   const navigate = useNavigate();
   const product = useLoaderData() as ProductItem;
+  const { products } = productStore;
 
   return (
     <main className={styles.product}>
@@ -27,11 +31,13 @@ const ProductPage = () => {
       )}
       <section className={styles.product_itemsContainer}>
         <Text view="title">Related Items</Text>
-        <div>{/* <Cards products={products} /> */}</div>
+        <div>
+          {products.length > 0 && <Cards products={products.slice(0, 3)} />}
+        </div>
       </section>
     </main>
   );
-};
+});
 
 export const loader = async ({ params }: { params: Params }) => {
   const productRes: ProductItem = await getProduct(

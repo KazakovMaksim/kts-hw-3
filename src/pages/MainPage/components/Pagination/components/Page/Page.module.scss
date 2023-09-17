@@ -1,0 +1,14 @@
+.page {
+  &_button {
+    padding: 10px;
+    color: var(--text-color);
+    background-color: transparent;
+    transition: all 0.3s ease;
+
+    &__active,
+    &:hover {
+      color: var(--screen-color);
+      background: var(--main-color);
+    }
+  }
+}
