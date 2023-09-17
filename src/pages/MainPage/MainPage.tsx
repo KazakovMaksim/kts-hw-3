@@ -13,13 +13,19 @@ import Pagination from 'pages/MainPage/components/Pagination';
 import styles from './MainPage.module.scss';
 
 const MainPage = observer(() => {
-  const [searchValue, setSearchValue] = useState('');
-  const { totalProductsNum, products, getProductsAction, isLoading, error } =
-    productStore;
+  const [query, setQuery] = useState('');
+  const {
+    totalProductsNum,
+    products,
+    getProductsAction,
+    isLoading,
+    error,
+    page,
+  } = productStore;
 
   useEffect(() => {
-    getProductsAction();
-  }, [getProductsAction]);
+    getProductsAction(page);
+  }, [getProductsAction, page]);
 
   return (
     <main className={styles.main}>
@@ -31,11 +37,7 @@ const MainPage = observer(() => {
         see our old products please enter the name of the item
       </Text>
       <div className={styles.main_searchContainer}>
-        <Input
-          value={searchValue}
-          onChange={setSearchValue}
-          placeholder="Search product"
-        />
+        <Input value={query} onChange={setQuery} placeholder="Search product" />
         <Button className={styles.main_searchButton}>Find now</Button>
       </div>
       {error ? (
@@ -50,7 +52,6 @@ const MainPage = observer(() => {
               {products.length > 0 ? totalProductsNum : 0}
             </Text>
           </div>
-
           <section className={styles.main_products}>
             {isLoading ? (
               <Loader className={styles.main_loader} />
