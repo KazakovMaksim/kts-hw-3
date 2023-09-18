@@ -1,9 +1,8 @@
 import React from 'react';
-import { useSearchParams } from 'react-router-dom';
 import cn from 'classnames';
 
 import productStore from 'store/productStore';
-import { QUERY_PAGE_PARAM } from 'constants/index';
+import { useActivePage } from 'hooks/useActivePage';
 
 import Text from 'components/Text';
 import Button from 'components/Button';
@@ -15,19 +14,12 @@ type PageProps = {
 };
 
 const Page: React.FC<PageProps> = ({ number, isActive = false }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = searchParams.get(QUERY_PAGE_PARAM);
+  const { activePageNumber, setActivePageNumber } = useActivePage();
 
   const handleClick = (num: number) => {
-    if (currentPage && +currentPage !== num) {
+    if (activePageNumber && activePageNumber !== num) {
       productStore.updatePage(num);
-      searchParams.set(QUERY_PAGE_PARAM, String(num));
-      setSearchParams(searchParams);
-    }
-    if (!currentPage) {
-      productStore.updatePage(num);
-      searchParams.set(QUERY_PAGE_PARAM, String(num));
-      setSearchParams(searchParams);
+      setActivePageNumber(num);
     }
   };
 

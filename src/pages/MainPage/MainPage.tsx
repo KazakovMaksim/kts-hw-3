@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import productStore from 'store/productStore';
+import { useActivePage } from 'hooks/useActivePage';
 
 import Text from 'components/Text';
 import Input from 'components/Input';
@@ -22,10 +23,17 @@ const MainPage = observer(() => {
     error,
     page,
   } = productStore;
+  const { activePageNumber, setActivePageNumber } = useActivePage();
 
   useEffect(() => {
     getProductsAction(page);
   }, [getProductsAction, page]);
+
+  useEffect(() => {
+    if (!activePageNumber) {
+      setActivePageNumber();
+    }
+  }, [setActivePageNumber, activePageNumber]);
 
   return (
     <main className={styles.main}>
