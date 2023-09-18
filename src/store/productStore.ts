@@ -15,6 +15,8 @@ class ProductStore {
 
   error = '';
 
+  title = '';
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -23,14 +25,21 @@ class ProductStore {
     this.isLoading = value;
   };
 
+  setTitle = (value: string) => {
+    this.title = value;
+  };
+
   updatePage = (newPage: number) => {
     this.page = newPage;
   };
 
-  getProductsAction = async (page: number) => {
+  getProductsAction = async (page = 1, title = this.title) => {
     try {
       this.setIsLoading(true);
-      const { totalProductsNumRes, productsRes } = await getProducts(page);
+      const { totalProductsNumRes, productsRes } = await getProducts(
+        page,
+        title
+      );
       runInAction(() => {
         this.totalProductsNum = totalProductsNumRes;
         this.products = productsRes;

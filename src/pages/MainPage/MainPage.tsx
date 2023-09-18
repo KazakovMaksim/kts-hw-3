@@ -14,7 +14,6 @@ import Pagination from 'pages/MainPage/components/Pagination';
 import styles from './MainPage.module.scss';
 
 const MainPage = observer(() => {
-  const [query, setQuery] = useState('');
   const {
     totalProductsNum,
     products,
@@ -22,12 +21,15 @@ const MainPage = observer(() => {
     isLoading,
     error,
     page,
+    setTitle,
   } = productStore;
-  const { activePageNumber, setActivePageNumber } = useActivePage();
+  const { activePageNumber, setActivePageNumber, titleParam, setTitleParam } =
+    useActivePage();
+  const [searchValue, setSearchValue] = useState(titleParam);
 
   useEffect(() => {
-    getProductsAction(activePageNumber || page);
-  }, [getProductsAction, activePageNumber, page]);
+    getProductsAction(activePageNumber || page, titleParam);
+  }, [getProductsAction, activePageNumber, page, titleParam]);
 
   useEffect(() => {
     if (!activePageNumber) {
@@ -45,8 +47,21 @@ const MainPage = observer(() => {
         see our old products please enter the name of the item
       </Text>
       <div className={styles.main_searchContainer}>
-        <Input value={query} onChange={setQuery} placeholder="Search product" />
-        <Button className={styles.main_searchButton}>Find now</Button>
+        <Input
+          value={searchValue}
+          onChange={setSearchValue}
+          placeholder="Search product"
+        />
+        <Button
+          className={styles.main_searchButton}
+          onClick={() => {
+            setTitle(searchValue);
+            setTitleParam(searchValue);
+            setActivePageNumber(1);
+          }}
+        >
+          Find now
+        </Button>
       </div>
       {error ? (
         <ErrorPage errorMessage={error} />

@@ -4,14 +4,14 @@ import { BASE_URL, CARDS_BY_PAGE } from 'constants/index';
 import { ProductItem } from 'types/index';
 import { getProductsURL } from 'utils/index';
 
-export const getProducts = async (page = 1) => {
+export const getProducts = async (page: number, title: string) => {
   try {
     const productsRes: AxiosResponse<ProductItem[]> = await axios(
-      `${getProductsURL(page, CARDS_BY_PAGE)}`
+      `${getProductsURL(page, CARDS_BY_PAGE)}&title=${title}`
     );
 
     const totalProductsNumRes: AxiosResponse<ProductItem[]> = await axios(
-      `${BASE_URL}${API_ENDPOINTS.PRODUCTS}`
+      `${BASE_URL}${API_ENDPOINTS.PRODUCTS}/?title=${title}`
     );
 
     return {
