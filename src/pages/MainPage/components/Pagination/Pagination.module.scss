@@ -6,20 +6,22 @@
   margin: 0 auto;
 
   &_arrow__right {
-    cursor: pointer;
-  }
-
-  &_arrow__left {
-    color: var(--text-secondary);
-  }
-
-  &_arrow__right {
-    color: var(--text-color);
     transform: rotate(180deg);
+  }
+
+  &_arrow__right,
+  &_arrow__left {
+    cursor: pointer;
+    color: var(--text-color);
     transition: color 0.3s ease;
 
     &:hover {
       color: var(--main-color);
     }
+  }
+
+  &__disabled {
+    pointer-events: none;
+    color: var(--text-secondary);
   }
 }
