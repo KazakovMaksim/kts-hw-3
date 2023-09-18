@@ -26,8 +26,8 @@ const MainPage = observer(() => {
   const { activePageNumber, setActivePageNumber } = useActivePage();
 
   useEffect(() => {
-    getProductsAction(page);
-  }, [getProductsAction, page]);
+    getProductsAction(activePageNumber || page);
+  }, [getProductsAction, activePageNumber, page]);
 
   useEffect(() => {
     if (!activePageNumber) {
