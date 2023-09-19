@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import productStore from 'store/productStore';
+import rootStore from 'store/RootStore';
 import { useActivePage } from 'hooks/useActivePage';
 
 import Text from 'components/Text';
@@ -11,6 +11,8 @@ import Button from 'components/Button';
 import Loader from 'components/Loader';
 import ErrorPage from 'pages/ErrorPage';
 import Pagination from 'pages/MainPage/components/Pagination';
+import DropDown from 'components/DropDown';
+import { Option } from 'components/DropDown/DropDown';
 import styles from './MainPage.module.scss';
 
 const MainPage = observer(() => {
@@ -22,7 +24,10 @@ const MainPage = observer(() => {
     error,
     page,
     setTitle,
-  } = productStore;
+  } = rootStore.productsStore;
+
+  const { getCategoriesAction, categories } = rootStore.categoriesStore;
+
   const { activePageNumber, setActivePageNumber, titleParam, setTitleParam } =
     useActivePage();
   const [searchValue, setSearchValue] = useState(titleParam);
@@ -32,10 +37,16 @@ const MainPage = observer(() => {
   }, [getProductsAction, activePageNumber, page, titleParam]);
 
   useEffect(() => {
+    getCategoriesAction();
+  }, [getCategoriesAction]);
+
+  useEffect(() => {
     if (!activePageNumber) {
       setActivePageNumber();
     }
   }, [setActivePageNumber, activePageNumber]);
+
+  const [val, setVal] = React.useState<Option[]>([]);
 
   return (
     <main className={styles.main}>
@@ -62,6 +73,21 @@ const MainPage = observer(() => {
         >
           Find now
         </Button>
+      </div>
+      <div className={styles.main_DropDownContainer}>
+        <DropDown
+          options={categories.map((item) => ({
+            key: String(item.id),
+            value: item.name,
+          }))}
+          onChange={(value) => setVal(value)}
+          value={val}
+          getTitle={(values: Option[]) =>
+            values.length === 0
+              ? 'Choose category'
+              : values.map(({ value }) => value).join(', ')
+          }
+        />
       </div>
       {error ? (
         <ErrorPage errorMessage={error} />
