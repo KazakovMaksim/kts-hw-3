@@ -44,6 +44,11 @@
     padding-bottom: var(--space-m);
   }
 
+  &_DropDownContainer {
+    max-width: 300px;
+    padding-bottom: var(--space-m);
+  }
+
   &_searchButton {
     white-space: nowrap;
   }
