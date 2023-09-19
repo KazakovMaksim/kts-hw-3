@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { API_ENDPOINTS } from 'config/api';
 import { BASE_URL, CARDS_BY_PAGE } from 'constants/index';
-import { ProductItem } from 'types/index';
+import { CategoryItem, ProductItem } from 'types/index';
 import { getProductsURL } from 'utils/index';
 
 export const getProducts = async (page: number, title: string) => {
@@ -30,6 +30,21 @@ export const getProduct = async (productId: number) => {
   try {
     const res: AxiosResponse<ProductItem> = await axios(
       `${BASE_URL}${API_ENDPOINTS.PRODUCTS}/${productId}`
+    );
+
+    return res.data;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+    throw new Error(String(err));
+  }
+};
+
+export const getCategories = async () => {
+  try {
+    const res: AxiosResponse<CategoryItem[]> = await axios(
+      `${BASE_URL}${API_ENDPOINTS.CATEGORIES}`
     );
 
     return res.data;
