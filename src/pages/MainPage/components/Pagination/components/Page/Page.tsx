@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 
-import productStore from 'store/productStore';
+import rootStore from 'store/RootStore';
 import { useActivePage } from 'hooks/useActivePage';
 
 import Text from 'components/Text';
@@ -18,7 +18,7 @@ const Page: React.FC<PageProps> = ({ number, isActive = false }) => {
 
   const handleClick = (num: number) => {
     if (activePageNumber && activePageNumber !== num) {
-      productStore.updatePage(num);
+      rootStore.productsStore.updatePage(num);
       setActivePageNumber(num);
     }
   };

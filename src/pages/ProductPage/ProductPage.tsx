@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
-import productStore from 'store/productStore';
+import rootStore from 'store/RootStore';
 
 import Text from 'components/Text';
 import Cards from 'components/Cards';
@@ -12,7 +12,8 @@ import Product from 'pages/ProductPage/components/Product';
 import styles from './ProductPage.module.scss';
 
 const ProductPage = observer(() => {
-  const { products, product, getProductAction, isLoading } = productStore;
+  const { products, product, getProductAction, isLoading } =
+    rootStore.productsStore;
   const navigate = useNavigate();
   const { productId } = useParams();
 

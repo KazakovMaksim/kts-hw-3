@@ -4,10 +4,9 @@ import cn from 'classnames';
 
 import ArrowIcon from 'components/Icons/ArrowIcon';
 import Page from 'pages/MainPage/components/Pagination/components/Page/Page';
-import ProductStore from 'store/index';
 import Text from 'components/Text';
 import { useActivePage } from 'hooks/useActivePage';
-import productStore from 'store/productStore';
+import rootStore from 'store/RootStore';
 import styles from './Pagination.module.scss';
 
 type PaginationProps = {
@@ -16,7 +15,7 @@ type PaginationProps = {
 
 const Pagination: React.FC<PaginationProps> = ({ siblingCount = 1 }) => {
   const { activePageNumber, setActivePageNumber } = useActivePage();
-  const { totalProductsNum } = ProductStore;
+  const { totalProductsNum } = rootStore.productsStore;
 
   const paginationRange = usePagination({
     currentPage: activePageNumber as number,
@@ -31,7 +30,7 @@ const Pagination: React.FC<PaginationProps> = ({ siblingCount = 1 }) => {
       const newPageNum =
         value === 'next' ? activePageNumber + 1 : activePageNumber - 1;
       setActivePageNumber(newPageNum);
-      productStore.updatePage(newPageNum);
+      rootStore.productsStore.updatePage(newPageNum);
     }
   };
 

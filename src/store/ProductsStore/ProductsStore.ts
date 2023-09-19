@@ -2,7 +2,7 @@ import { getProduct, getProducts } from 'api/apiProducts';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { ProductItem } from 'types/index';
 
-class ProductStore {
+class ProductsStore {
   products: ProductItem[] = [];
 
   product: ProductItem | null = null;
@@ -40,6 +40,7 @@ class ProductStore {
         page,
         title
       );
+
       runInAction(() => {
         this.totalProductsNum = totalProductsNumRes;
         this.products = productsRes;
@@ -70,6 +71,4 @@ class ProductStore {
   };
 }
 
-const productStore = new ProductStore();
-
-export default productStore;
+export default ProductsStore;
