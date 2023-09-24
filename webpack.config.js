@@ -21,6 +21,14 @@ const getSettingsForStyles = (withModules = false) => {
             },
           },
         },
+    {
+      loader: 'postcss-loader',
+      options: {
+        postcssOptions: {
+          plugins: ['autoprefixer'],
+        },
+      },
+    },
     'sass-loader',
   ];
 };
