@@ -6,6 +6,25 @@ const srcPath = path.resolve(__dirname, 'src');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const isProd = process.env.NODE_ENV === 'production';
 
+const getSettingsForStyles = (withModules = false) => {
+  return [
+    'style-loader',
+    !withModules
+      ? 'css-loader'
+      : {
+          loader: 'css-loader',
+          options: {
+            modules: {
+              localIdentName: !isProd
+                ? '[path][name]__[local]'
+                : '[hash:base64]',
+            },
+          },
+        },
+    'sass-loader',
+  ];
+};
+
 module.exports = {
   entry: path.join(srcPath, 'main.js'),
   output: {
@@ -20,8 +39,13 @@ module.exports = {
         use: 'babel-loader',
       },
       {
+        test: /\.module\.s?css$/,
+        use: getSettingsForStyles(true),
+      },
+      {
         test: /\.s?css$/,
-        use: ['style-loader', 'css-loader', 'saas-loader'],
+        exclude: /\.module\.s?css$/,
+        use: getSettingsForStyles(),
       },
     ],
   },
