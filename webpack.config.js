@@ -5,10 +5,11 @@ const HtmlWebpackConfig = require('html-webpack-plugin');
 const srcPath = path.resolve(__dirname, 'src');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const isProd = process.env.NODE_ENV === 'production';
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const getSettingsForStyles = (withModules = false) => {
   return [
-    'style-loader',
+    MiniCssExtractPlugin.loader,
     !withModules
       ? 'css-loader'
       : {
@@ -62,6 +63,9 @@ module.exports = {
       template: path.join(srcPath, 'index.html'),
     }),
     !isProd && new ReactRefreshWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name]-[hash].css',
+    }),
   ].filter(Boolean),
   devServer: {
     host: '127.0.0.1',
