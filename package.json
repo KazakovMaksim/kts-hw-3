@@ -1,0 +1,17 @@
+{
+  "name": "e-commerse",
+  "version": "1",
+  "description": "KTS project",
+  "main": "index.js",
+  "repository": "https://github.com/KazakovMaksim/kts-hw-3.git",
+  "author": "KazakovMaksim <kazakovmaksimi@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.22.15",
+    "@babel/core": "^7.22.20",
+    "@babel/preset-env": "^7.22.20"
+  },
+  "browserslist": [
+    "ie 11"
+  ]
+}
