@@ -46,7 +46,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.[t]jsx?$/,
+        test: /\.[tj]sx?$/,
         use: 'babel-loader',
       },
       {
@@ -83,6 +83,7 @@ module.exports = {
     host: '127.0.0.1',
     port: 9000,
     hot: true,
+    historyApiFallback: true,
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
