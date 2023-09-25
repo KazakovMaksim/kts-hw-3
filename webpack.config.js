@@ -6,6 +6,7 @@ const srcPath = path.resolve(__dirname, 'src');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const isProd = process.env.NODE_ENV === 'production';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const getSettingsForStyles = (withModules = false) => {
   return [
@@ -35,7 +36,7 @@ const getSettingsForStyles = (withModules = false) => {
 };
 
 module.exports = {
-  entry: path.join(srcPath, 'main.js'),
+  entry: path.join(srcPath, 'main.tsx'),
   output: {
     path: buildPath,
     filename: 'bundle.js',
@@ -44,7 +45,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.[t]jsx?$/,
         use: 'babel-loader',
       },
       {
@@ -75,6 +76,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name]-[hash].css',
     }),
+    new ForkTsCheckerWebpackPlugin(),
   ].filter(Boolean),
   devServer: {
     host: '127.0.0.1',
