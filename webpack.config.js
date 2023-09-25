@@ -56,6 +56,15 @@ module.exports = {
         exclude: /\.module\.s?css$/,
         use: getSettingsForStyles(),
       },
+      {
+        test: /\.(png|svg|jpg)$/,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024,
+          },
+        },
+      },
     ],
   },
   plugins: [
