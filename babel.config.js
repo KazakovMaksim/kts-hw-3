@@ -10,6 +10,7 @@ module.exports = (api) => {
     '@babel/preset-env',
     '@babel/preset-react',
     '@babel/preset-typescript',
+    'mobx',
   ];
 
   return {
