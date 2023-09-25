@@ -83,4 +83,20 @@ module.exports = {
     port: 9000,
     hot: true,
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias: {
+      components: path.join(srcPath, 'components'),
+      assets: path.join(srcPath, 'assets'),
+      constants: path.join(srcPath, 'constants'),
+      styles: path.join(srcPath, 'styles'),
+      types: path.join(srcPath, 'types'),
+      utils: path.join(srcPath, 'utils'),
+      api: path.join(srcPath, 'api'),
+      store: path.join(srcPath, 'store'),
+      hooks: path.join(srcPath, 'hooks'),
+      pages: path.join(srcPath, 'pages'),
+      config: path.join(srcPath, 'config'),
+    },
+  },
 };

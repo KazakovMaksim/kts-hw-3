@@ -11,9 +11,22 @@
     "moduleResolution": "node",
     "jsx": "react",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
+    "paths": {
+      "components": ["components"],
+      "assets": ["assets"],
+      "constants": ["constants"],
+      "styles": ["styles"],
+      "types": ["types"],
+      "utils": ["utils"],
+      "api": ["api"],
+      "store": ["store"],
+      "hooks": ["hooks"],
+      "pages": ["pages"],
+      "config": ["config"]
+    }
   },
-
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
