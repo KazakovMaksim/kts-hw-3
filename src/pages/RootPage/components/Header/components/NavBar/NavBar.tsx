@@ -1,3 +1,4 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { NAV_BAR_LINKS } from 'constants/index';
 import Text from 'components/Text';
