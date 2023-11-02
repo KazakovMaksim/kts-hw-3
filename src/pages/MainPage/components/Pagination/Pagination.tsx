@@ -1,3 +1,4 @@
+import React from 'react';
 import { CARDS_BY_PAGE } from 'constants/index';
 import { usePagination } from 'hooks/usePagination';
 import cn from 'classnames';

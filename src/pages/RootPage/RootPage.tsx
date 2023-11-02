@@ -1,3 +1,4 @@
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Wrapper from 'pages/RootPage/components/Wrapper';
 import Header from 'pages/RootPage/components/Header';

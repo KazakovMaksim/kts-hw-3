@@ -1,3 +1,4 @@
+import React from 'react';
 import { ProductItem } from 'types/index';
 
 import Text from 'components/Text';

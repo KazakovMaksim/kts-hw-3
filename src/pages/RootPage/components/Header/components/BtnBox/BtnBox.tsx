@@ -1,3 +1,4 @@
+import React from 'react';
 import CartIcon from 'components/Icons/CartIcon';
 import UserIcon from 'components/Icons/UserIcon';
 import styles from './BtnBox.module.scss';

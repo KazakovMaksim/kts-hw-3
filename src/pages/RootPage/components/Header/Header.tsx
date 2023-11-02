@@ -1,3 +1,4 @@
+import React from 'react';
 import BtnBox from './components/BtnBox';
 import NavBar from './components/NavBar';
 import Logo from './components/Logo';
