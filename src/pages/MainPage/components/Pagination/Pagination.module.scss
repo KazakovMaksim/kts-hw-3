@@ -1,0 +1,38 @@
+.pagination {
+  display: flex;
+  max-width: 296px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+
+  &_button {
+    padding: 10px;
+    color: var(--text-color);
+    background-color: transparent;
+    transition: all 0.3s ease;
+
+    &__active,
+    &:hover {
+      color: var(--screen-color);
+      background: var(--main-color);
+    }
+  }
+
+  &_arrow__right {
+    cursor: pointer;
+  }
+
+  &_arrow__left {
+    color: var(--text-secondary);
+  }
+
+  &_arrow__right {
+    color: var(--text-color);
+    transform: rotate(180deg);
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--main-color);
+    }
+  }
+}

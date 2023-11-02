@@ -1,0 +1,37 @@
+.product {
+  padding-top: 160px;
+
+  &_back {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin-bottom: 32px;
+
+    & > svg {
+      cursor: pointer;
+      transition: 0.3s ease;
+
+      &:hover {
+        color: var(--main-color);
+      }
+    }
+  }
+
+  &_empty {
+    text-align: center;
+  }
+
+  &_loader {
+    margin: 0 auto;
+  }
+
+  &_itemsContainer {
+    padding-top: 48px;
+    display: flex;
+    flex-direction: column;
+
+    & > p:nth-child(1) {
+      font-size: 32px;
+    }
+  }
+}
