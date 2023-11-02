@@ -1,45 +1,52 @@
-import { useState, useEffect } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import React, { useState, useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 
-import { CARDS_BY_PAGE } from 'constants/index';
-import { ProductItem } from 'types/index';
-import { getProductsURL } from 'utils/index';
+import rootStore from 'store/RootStore';
+import { useActivePage } from 'hooks/useActivePage';
 
 import Text from 'components/Text';
 import Input from 'components/Input';
+import Cards from 'components/Cards';
 import Button from 'components/Button';
 import Loader from 'components/Loader';
-import Cards from 'components/Cards';
+import ErrorPage from 'pages/ErrorPage';
 import Pagination from 'pages/MainPage/components/Pagination';
+import DropDown from 'components/DropDown';
+import { Option } from 'components/DropDown/DropDown';
 import styles from './MainPage.module.scss';
 
-const tempCurrentPage = 1;
+const MainPage = observer(() => {
+  const {
+    totalProductsNum,
+    products,
+    getProductsAction,
+    isLoading,
+    error,
+    page,
+    setTitle,
+  } = rootStore.productsStore;
 
-const MainPage = () => {
-  const [searchValue, setSearchValue] = useState('');
-  const [totalProductsNum, setTotalProductsNum] = useState(0);
-  const [products, setProducts] = useState<ProductItem[]>([]);
-  const [, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const { getCategoriesAction, categories } = rootStore.categoriesStore;
+
+  const { activePageNumber, setActivePageNumber, titleParam, setTitleParam } =
+    useActivePage();
+  const [searchValue, setSearchValue] = useState(titleParam);
 
   useEffect(() => {
-    const fetch = async () => {
-      try {
-        const res: AxiosResponse<ProductItem[]> = await axios(
-          getProductsURL(tempCurrentPage, CARDS_BY_PAGE)
-        );
-        setTotalProductsNum(res.headers['x-total-count']);
-        setProducts(res.data);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetch();
-  }, []);
+    getProductsAction(activePageNumber || page, titleParam);
+  }, [getProductsAction, activePageNumber, page, titleParam]);
+
+  useEffect(() => {
+    getCategoriesAction();
+  }, [getCategoriesAction]);
+
+  useEffect(() => {
+    if (!activePageNumber) {
+      setActivePageNumber();
+    }
+  }, [setActivePageNumber, activePageNumber]);
+
+  const [val, setVal] = React.useState<Option[]>([]);
 
   return (
     <main className={styles.main}>
@@ -56,28 +63,58 @@ const MainPage = () => {
           onChange={setSearchValue}
           placeholder="Search product"
         />
-        <Button className={styles.main_searchButton}>Find now</Button>
+        <Button
+          className={styles.main_searchButton}
+          onClick={() => {
+            setTitle(searchValue);
+            setTitleParam(searchValue);
+            setActivePageNumber(1);
+          }}
+        >
+          Find now
+        </Button>
       </div>
-      <div className={styles.main_total}>
-        <Text tag="h3" view="title">
-          Total Product
-        </Text>
-        <Text tag="span" color="accent" view="p-20" weight="bold">
-          {products.length > 0 ? totalProductsNum : 0}
-        </Text>
+      <div className={styles.main_DropDownContainer}>
+        <DropDown
+          options={categories.map((item) => ({
+            key: String(item.id),
+            value: item.name,
+          }))}
+          onChange={(value) => setVal(value)}
+          value={val}
+          getTitle={(values: Option[]) =>
+            values.length === 0
+              ? 'Choose category'
+              : values.map(({ value }) => value).join(', ')
+          }
+        />
       </div>
-      <section className={styles.main_products}>
-        {isLoading ? (
-          <Loader className={styles.main_loader} />
-        ) : (
-          <>
-            <Cards products={products} />
-            <Pagination />
-          </>
-        )}
-      </section>
+      {error ? (
+        <ErrorPage errorMessage={error} />
+      ) : (
+        <>
+          <div className={styles.main_total}>
+            <Text tag="h3" view="title">
+              Total Product
+            </Text>
+            <Text tag="span" color="accent" view="p-20" weight="bold">
+              {products.length > 0 ? totalProductsNum : 0}
+            </Text>
+          </div>
+          <section className={styles.main_products}>
+            {isLoading ? (
+              <Loader className={styles.main_loader} />
+            ) : (
+              <>
+                <Cards products={products} />
+                <Pagination />
+              </>
+            )}
+          </section>
+        </>
+      )}
     </main>
   );
-};
+});
 
 export default MainPage;

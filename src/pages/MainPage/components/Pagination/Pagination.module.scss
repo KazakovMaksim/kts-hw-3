@@ -1,38 +1,28 @@
 .pagination {
   display: flex;
-  max-width: 296px;
-  justify-content: space-between;
+  max-width: 400px;
+  justify-content: center;
   align-items: center;
+  gap: 5px;
   margin: 0 auto;
 
-  &_button {
-    padding: 10px;
-    color: var(--text-color);
-    background-color: transparent;
-    transition: all 0.3s ease;
-
-    &__active,
-    &:hover {
-      color: var(--screen-color);
-      background: var(--main-color);
-    }
-  }
-
   &_arrow__right {
-    cursor: pointer;
-  }
-
-  &_arrow__left {
-    color: var(--text-secondary);
-  }
-
-  &_arrow__right {
-    color: var(--text-color);
     transform: rotate(180deg);
+  }
+
+  &_arrow__right,
+  &_arrow__left {
+    cursor: pointer;
+    color: var(--text-color);
     transition: color 0.3s ease;
 
     &:hover {
       color: var(--main-color);
     }
+  }
+
+  &__disabled {
+    pointer-events: none;
+    color: var(--text-secondary);
   }
 }

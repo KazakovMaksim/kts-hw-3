@@ -23,17 +23,17 @@ const Cards: React.FC<CardsProps> = ({ products }) => {
         products.map((product) => (
           <Card
             key={product.id}
-            image={`${BASE_URL}/${product.imgSrc}`}
+            image={product.images[0]}
             title={product.title}
             subtitle={product.description}
-            captionSlot={product.category}
+            captionSlot={product.category.name}
             contentSlot={`$${product.price}`}
             actionSlot={<Button>Add to cart</Button>}
             onClick={() => {
               if (productId) {
                 const currentPath = location.pathname;
                 const newPath = `/product/${product.id}`;
-                navigate(newPath, { replace: currentPath !== newPath });
+                if (currentPath !== newPath) navigate(newPath);
               } else {
                 navigate(`product/${product.id}`);
               }

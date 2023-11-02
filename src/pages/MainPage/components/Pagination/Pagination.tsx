@@ -1,51 +1,80 @@
+import { CARDS_BY_PAGE } from 'constants/index';
+import { usePagination } from 'hooks/usePagination';
 import cn from 'classnames';
 
-import Button from 'components/Button';
 import ArrowIcon from 'components/Icons/ArrowIcon';
+import Page from 'pages/MainPage/components/Pagination/components/Page/Page';
 import Text from 'components/Text';
+import { useActivePage } from 'hooks/useActivePage';
+import rootStore from 'store/RootStore';
 import styles from './Pagination.module.scss';
 
-const Pagination = () => {
+type PaginationProps = {
+  siblingCount?: number;
+};
+
+const Pagination: React.FC<PaginationProps> = ({ siblingCount = 1 }) => {
+  const { activePageNumber, setActivePageNumber } = useActivePage();
+  const { totalProductsNum } = rootStore.productsStore;
+
+  const paginationRange = usePagination({
+    currentPage: activePageNumber as number,
+    totalCount: totalProductsNum,
+    siblingCount,
+    pageSize: CARDS_BY_PAGE,
+  }) as (string | number)[];
+  const lastPage = paginationRange[paginationRange.length - 1];
+
+  const onPageChange = (value: string) => {
+    if (activePageNumber) {
+      const newPageNum =
+        value === 'next' ? activePageNumber + 1 : activePageNumber - 1;
+      setActivePageNumber(newPageNum);
+      rootStore.productsStore.updatePage(newPageNum);
+    }
+  };
+
+  if (paginationRange && paginationRange.length < 2) {
+    return null;
+  }
+
   return (
     <div className={styles.pagination}>
       <ArrowIcon
-        className={styles.pagination_arrow__left}
+        className={cn(
+          styles.pagination_arrow__left,
+          activePageNumber === 1 && styles.pagination__disabled
+        )}
         width={32}
         height={32}
+        role="presentation"
+        onClick={() => onPageChange('prev')}
       />
-      <div className={styles.pagination_pages}>
-        <Button
-          className={cn(
-            styles.pagination_button,
-            styles.pagination_button__active
-          )}
-        >
-          <Text view="p-18" tag="span" weight="medium">
-            1
-          </Text>
-        </Button>
-        <Button className={styles.pagination_button}>
-          <Text view="p-18" tag="span" weight="medium">
-            2
-          </Text>
-        </Button>
-        <Button className={styles.pagination_button}>
-          <Text view="p-18" tag="span" weight="medium">
-            3
-          </Text>
-        </Button>
-        <Button className={styles.pagination_button}>
-          <Text view="p-18" tag="span" weight="medium">
-            ...
-          </Text>
-        </Button>
-        <Button className={styles.pagination_button}>
-          <Text view="p-18" tag="span" weight="medium">
-            10
-          </Text>
-        </Button>
-      </div>
-      <ArrowIcon className={styles.pagination_arrow__right} />
+      {paginationRange.map((pageNumber) => {
+        if (typeof pageNumber !== 'number') {
+          return (
+            <Text key={crypto.randomUUID()} view="p-20">
+              &#8230;
+            </Text>
+          );
+        }
+
+        return (
+          <Page
+            key={pageNumber}
+            number={pageNumber}
+            isActive={activePageNumber === pageNumber}
+          />
+        );
+      })}
+      <ArrowIcon
+        className={cn(
+          styles.pagination_arrow__right,
+          activePageNumber === lastPage && styles.pagination__disabled
+        )}
+        role="presentation"
+        onClick={() => onPageChange('next')}
+      />
     </div>
   );
 };
